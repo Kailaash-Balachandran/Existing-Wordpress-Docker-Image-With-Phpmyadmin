@@ -1,6 +1,8 @@
-# Existing-Wordpress-Docker-Image-With-Phpmyadmin
+# Existing Wordpress Docker Image With Phpmyadmin
 
-1. Place the sql dump under /etc/docker-entrypoint-initdb.d
+Steps to dockerize existing wordpress application using docker compose.
+
+1. Create folder and place the sql dump under ./etc/docker-entrypoint-initdb.d/DUMP.sql
 2. Create ./blog folder and copy all wordpress files underneath.
 3. Make sure to update the database config in wp-config.php
 4. run docker-compose up --build
