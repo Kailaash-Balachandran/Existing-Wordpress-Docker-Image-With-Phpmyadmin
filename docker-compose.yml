@@ -1,0 +1,29 @@
+version: "3"
+services:
+  wordpress_db:
+      image: mariadb
+      environment:
+        MYSQL_ROOT_PASSWORD: MYSQL_ROOT_PASSWORD
+      volumes:
+        -  ./etc/mysql:/var/lib/mysql
+        - ./etc/docker-entrypoint-initdb.d:/docker-entrypoint-initdb.d
+      restart: always
+  wordpress:
+    image: wordpress
+    links:
+      - wordpress_db:mysql
+    volumes:
+      - ./etc/apache-conf/apache2.conf:/etc/apache2/apache2.conf
+      - ./blog:/var/www/html
+    ports:
+      - 8080:80
+    restart: always
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin
+    links:
+      - wordpress_db:db
+    ports:
+      - 8181:80
+    environment:
+      MYSQL_USER: MYSQL_USER
+      MYSQL_ROOT_PASSWORD: MYSQL_ROOT_PASSWORD
